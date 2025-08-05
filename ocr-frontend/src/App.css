@@ -15,6 +15,13 @@
   letter-spacing: 1px;
 }
 
+.viewer-container {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  margin-bottom: 30px;
+}
+
 .file-list-container {
   margin-top: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
@@ -126,6 +133,10 @@
 @media (max-width: 768px) {
   .navbar-brand {
     font-size: 1.1rem;
+  }
+  
+  .viewer-container {
+    gap: 20px;
   }
   
   .file-list-container {

@@ -1,13 +1,12 @@
 import React, { useState, useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
-import { Button, Form, Alert, Spinner, Container, Row, Col } from 'react-bootstrap';
-import { FiUploadCloud, FiFile, FiFileText, FiCheckCircle, FiInfo, FiCpu, FiLayers, FiShield } from 'react-icons/fi';
-import { FiSearch, FiLock } from 'react-icons/fi';
+import { Button, Form, Alert, Spinner, Container, Row } from 'react-bootstrap';
+import { FiUploadCloud, FiFile,FiCheckCircle, FiInfo } from 'react-icons/fi';
 import './FileUpload.css';
 
 const FileUpload = ({ onUploadComplete }) => {
   const [file, setFile] = useState(null);
-  const [documentType, setDocumentType] = useState('Document Type 1');
+  const [documentType, setDocumentType] = useState('PDF');
   const [uploadStatus, setUploadStatus] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -130,12 +129,11 @@ const FileUpload = ({ onUploadComplete }) => {
                   value={documentType} 
                   onChange={(e) => setDocumentType(e.target.value)}
                 >
-              <option value="Document Type 1">Document Type 1</option>
-              <option value="Document Type 2">Document Type 2</option>
-              <option value="Document Type 3">Document Type 3</option>
-              <option value="Document Type 4">Document Type 4</option>
-              <option value="Document Type 5">Document Type 5</option>
-              <option value="Document Type 6">Document Type 6</option>
+              <option value="PDF">PDF</option>
+              <option value="JPEG">JPEG</option>
+              <option value="JPG">JPG</option>
+              <option value="TXT">TXT</option>
+              <option value="PNG">PNG</option>
                 </Form.Select>
               </Form.Group>
 

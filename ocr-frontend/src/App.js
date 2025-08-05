@@ -4,6 +4,7 @@ import { FiEye, FiUpload, FiList, FiFileText, FiMessageSquare } from 'react-icon
 import FileUpload from './components/FileUpload/FileUpload';
 import DocumentViewer from './components/DocumentViewer/DocumentViewer';
 import ComparisonView from './components/ComparisonView/ComparisonView';
+import ChatBot from './components/ChatBot/ChatBot';
 import { processDocument, getDocumentsList, getDocumentById } from './services/ocrService';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
@@ -87,17 +88,40 @@ function App() {
     }
   };
 
+  // Handle save changes from DocumentViewer
+  const handleSaveChanges = (updatedContent) => {
+    if (selectedDocument) {
+      const updatedDocument = {
+        ...selectedDocument,
+        extractedContent: updatedContent
+      };
+      setSelectedDocument(updatedDocument);
+      
+      // Update the document in the documents list
+      setDocuments(documents.map(doc => 
+        doc.id === selectedDocument.id ? updatedDocument : doc
+      ));
+    }
+  };
+
   // Render the active view
   const renderActiveView = () => {
     switch (activeView) {
       case 'upload':
         return <FileUpload onUploadComplete={handleFileUpload} />;
       case 'viewer':
+        if (!selectedDocument) {
+          return <div className="text-center">No document selected</div>;
+        }
+        
         return (
-          <>
-            <DocumentViewer document={selectedDocument} />
+          <div className="viewer-container">
+            <DocumentViewer 
+              document={selectedDocument} 
+              onSaveChanges={handleSaveChanges}
+            />
             <ComparisonView document={selectedDocument} />
-          </>
+          </div>
         );
       case 'list':
         return (
@@ -167,15 +191,6 @@ function App() {
               >
                 <FiList className="me-1" /> Documents
               </Nav.Link>
-              {activeView === 'view' && (
-                 <Nav.Link 
-                   active={true}
-                   onClick={() => setActiveView('viewer')}
-                   className="active-military-nav"
-                 >
-                   <FiFileText className="me-1" /> Document View
-                 </Nav.Link>
-                )}
             </Nav>
           </Navbar.Collapse>
         </Container>
@@ -205,23 +220,21 @@ function App() {
           <span className="text-white">© 2025 OCR. All rights reserved.</span>
         </Container>
       </footer>
+      
       {/* Floating Chat Bot Button */}
       <button
         className="chatbot-btn"
-        onClick={() => setIsChatOpen((v) => !v)}
+        onClick={() => setIsChatOpen(true)}
         aria-label="Open chat bot"
       >
         <FiMessageSquare size={28} />
       </button>
-      {/* Chat Modal */}
-      {isChatOpen && (
-        <div className="chatbot-modal">
-          <div className="chatbot-modal-content">
-            <button className="chatbot-modal-close" onClick={() => setIsChatOpen(false)}>&times;</button>
-            <div style={{padding: '2rem', color: '#222'}}>Chat bot coming soon...</div>
-          </div>
-        </div>
-      )}
+      
+      {/* Chat Bot Modal */}
+      <ChatBot 
+        isOpen={isChatOpen} 
+        onClose={() => setIsChatOpen(false)} 
+      />
     </div>
   );
 }

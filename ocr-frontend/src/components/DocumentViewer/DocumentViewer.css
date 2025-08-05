@@ -11,11 +11,6 @@
   gap: 10px;
 }
 
-.document-actions {
-  display: flex;
-  gap: 10px;
-}
-
 .document-body {
   min-height: 500px;
   max-height: 700px;
@@ -64,6 +59,27 @@
   margin: 0;
 }
 
+.document-textarea {
+  width: 100%;
+  min-height: 650px;
+  padding: 15px;
+  background-color: white;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  font-family: monospace;
+  white-space: pre-wrap;
+  word-break: break-word;
+  resize: vertical;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.extracted-content-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 .document-json {
   color: #333;
 }
@@ -75,12 +91,6 @@
     align-items: flex-start;
   }
   
-  .document-actions {
-    margin-top: 10px;
-    width: 100%;
-    justify-content: flex-end;
-  }
-  
   .document-body {
     min-height: 400px;
     max-height: 500px;
@@ -88,7 +98,8 @@
   
   .document-pdf,
   .document-text,
-  .document-json {
+  .document-json,
+  .document-textarea {
     min-height: 400px;
   }
 }
